@@ -1,7 +1,7 @@
 # fzf-similar.vim
 
-`fzf_similar.vim` is a plug in for finding files similar to the one you are
-currently editing. This plugin uses a custom FZF query to find the similar
+`fzf_similar.vim` is a simple plug in for finding files similar to the one you
+are currently editing. This plugin uses a custom FZF query to find the similar
 files, and present the list of results.
 
 ## Installation
@@ -24,6 +24,14 @@ Add this (with the mapping of your choice) to your `.vimrc`:
 ```
 nnoremap <silent> <Leader><C-f> :call fzf_similar#find_similar_files()<CR>
 ```
+
+## FAQ
+
+### Why not use
+[vim-projectionist](https://github.com/tpope/vim-projectionist)?
+
+That plugin requires manual configuration to get it to work. This plugin works
+for (most) projects out-of-the-box.
 
 # TODO
 
