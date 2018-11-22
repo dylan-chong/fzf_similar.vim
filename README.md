@@ -1,4 +1,4 @@
-# fzf-similar.vim
+# fzf_similar.vim
 
 `fzf_similar.vim` is a simple plug in for finding files similar to the one you
 are currently editing. This plugin uses a custom FZF query to find the similar
