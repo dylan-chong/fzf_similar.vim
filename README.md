@@ -4,6 +4,16 @@
 are currently editing. This plugin uses a custom FZF query to find the similar
 files, and present the list of results.
 
+### Examples
+
+In an Angular app, if you are editing `src/components/banner.component.ts`,
+this plugin will suggest, `src/components/banner.component.spec.ts`,
+`src/components/banner.html` and `src/components/banner.scss`.
+
+In a Rails app, you are currently editing file `app/models/report.rb`, this
+plugin will suggest the file `spec/models/report.rb`, while ignoring
+`app/controllers/report.rb` and `spec/controllers/report.rb`.
+
 ## Installation
 
 Install this plugin using the plugin manager of your choice, for example with
@@ -33,7 +43,14 @@ nnoremap <silent> <Leader><C-f> :call fzf_similar#find_similar_files()<CR>
 That plugin requires manual configuration to get it to work. This plugin works
 for (most) projects out-of-the-box.
 
+---
+
 # TODO
 
-- get alternative specificities working
+- add vim documentation
+- tidy up the query that the user has to see?
+- add multiple levels of specificity
+    1. existing functionality
+    2. searching of files for similar name, ie ignoring directory structure
+    3. searching for files in the current directory or similarly named directory?
 - right documentation
