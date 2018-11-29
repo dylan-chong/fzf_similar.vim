@@ -32,7 +32,8 @@ installation instructions for that plugin.
 Add this (with the mapping of your choice) to your `.vimrc`:
 
 ```vim
-nnoremap <silent> <Leader><C-f> :call fzf_similar#find_similar_files()<CR>
+nnoremap <silent> <Leader><C-f>1 :call fzf_similar#find_similar_files()<CR>
+nnoremap <silent> <Leader><C-f>2 :call fzf_similar#find_similarly_named_files()<CR>
 ```
 
 ## FAQ
