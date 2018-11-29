@@ -7,10 +7,7 @@
 " relevant ones are).
 
 function! fzf_similar#find_similar_files()
-  " Get rid of extensions
-  let base_file_name = substitute(expand('%:t'), '\v([^\.]+)%(\..*|$)', '\1', '')
-  " Get rid of -test and such
-  let base_file_name = substitute(base_file_name, '\v\c%(-|_)%(test|spec)', '', '')
+  let base_file_name = s:get_base_file_name()
 
   let is_in_subdirectory = expand('%') =~ '/'
   if is_in_subdirectory
@@ -38,10 +35,7 @@ function! fzf_similar#find_similar_files()
 endfunction
 
 function! fzf_similar#find_similarly_named_files()
-  " Get rid of extensions
-  let base_file_name = substitute(expand('%:t'), '\v([^\.]+)%(\..*|$)', '\1', '')
-  " Get rid of -test and such
-  let base_file_name = substitute(base_file_name, '\v\c%(-|_)%(test|spec)', '', '')
+  let base_file_name = s:get_base_file_name()
 
   let is_in_subdirectory = expand('%') =~ '/'
   if is_in_subdirectory
@@ -53,4 +47,12 @@ function! fzf_similar#find_similarly_named_files()
   let query = '!^./' . expand('%') . "$\\ " . main_search_term
   let command = ':FZF --tiebreak=end,length -q ' . query
   execute command
+endfunction
+
+function! s:get_base_file_name()
+  " Get rid of extensions (.rb, .spec.ts)
+  let base_file_name = substitute(expand('%:t'), '\v([^\.]+)%(\..*|$)', '\1', '')
+  " Get rid of -test and such
+  let base_file_name = substitute(base_file_name, '\v\c%(-|_)%(test|spec)', '', '')
+  return base_file_name
 endfunction
