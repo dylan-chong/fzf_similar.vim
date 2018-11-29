@@ -19,7 +19,7 @@ plugin will suggest the file `spec/models/report.rb`, while ignoring
 Install this plugin using the plugin manager of your choice, for example with
 [vim-plug](https://github.com/junegunn/vim-plug):
 
-```
+```vim
 Plug 'dylan-chong/fzf_similar.vim'
 ```
 
@@ -31,7 +31,7 @@ installation instructions for that plugin.
 
 Add this (with the mapping of your choice) to your `.vimrc`:
 
-```
+```vim
 nnoremap <silent> <Leader><C-f> :call fzf_similar#find_similar_files()<CR>
 ```
 

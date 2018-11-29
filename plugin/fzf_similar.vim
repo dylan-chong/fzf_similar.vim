@@ -36,3 +36,21 @@ function! fzf_similar#find_similar_files()
   let command = ':FZF --tiebreak=end,length -q ' . query
   execute command
 endfunction
+
+function! fzf_similar#find_similarly_named_files()
+  " Get rid of extensions
+  let base_file_name = substitute(expand('%:t'), '\v([^\.]+)%(\..*|$)', '\1', '')
+  " Get rid of -test and such
+  let base_file_name = substitute(base_file_name, '\v\c%(-|_)%(test|spec)', '', '')
+
+  let is_in_subdirectory = expand('%') =~ '/'
+  if is_in_subdirectory
+    let main_search_term = "'/" . base_file_name
+  else
+    let main_search_term = "'" . base_file_name
+  endif
+
+  let query = '!^./' . expand('%') . "$\\ " . main_search_term
+  let command = ':FZF --tiebreak=end,length -q ' . query
+  execute command
+endfunction
