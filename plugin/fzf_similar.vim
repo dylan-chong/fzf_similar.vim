@@ -24,14 +24,10 @@ function! fzf_similar#find_similar_files()
     let simplified_directory = substitute(simplified_directory, '^/', '', 'g')
     " simplify_directory may not exactly match the actual directory of the file
     " you are looking for, but that is okay because fzf does a fuzzy search
-    let main_search_term = simplified_directory . '/' . base_file_name
+    call s:run_query(simplified_directory . '/' . base_file_name)
   else
-    let main_search_term = "'" . base_file_name
+    call s:run_query("'" . base_file_name)
   endif
-
-  let query = '!^./' . expand('%') . "$\\ " . main_search_term
-  let command = ':FZF --tiebreak=end,length -q ' . query
-  execute command
 endfunction
 
 function! fzf_similar#find_similarly_named_files()
@@ -39,14 +35,10 @@ function! fzf_similar#find_similarly_named_files()
 
   let is_in_subdirectory = expand('%') =~ '/'
   if is_in_subdirectory
-    let main_search_term = "'/" . base_file_name
+    call s:run_query("'/" . base_file_name)
   else
-    let main_search_term = "'" . base_file_name
+    call s:run_query("'" . base_file_name)
   endif
-
-  let query = '!^./' . expand('%') . "$\\ " . main_search_term
-  let command = ':FZF --tiebreak=end,length -q ' . query
-  execute command
 endfunction
 
 function! s:get_base_file_name()
@@ -55,4 +47,12 @@ function! s:get_base_file_name()
   " Get rid of -test and such
   let base_file_name = substitute(base_file_name, '\v\c%(-|_)%(test|spec)', '', '')
   return base_file_name
+endfunction
+
+function! s:run_query(query)
+  let base_query = ':FZF --tiebreak=end,length'
+  let ignore_current_file_query = '!^./' . expand('%') . "$"
+
+  let command = base_query . ' -q ' . ignore_current_file_query . "\\ " . a:query
+  execute command
 endfunction
