@@ -53,5 +53,8 @@ for (most) projects out-of-the-box.
 - add multiple levels of specificity
     1. existing functionality
     2. searching of files for similar name, ie ignoring directory structure
-    3. searching for files in the current directory or similarly named directory?
+    3. searching of files for similar name, ie ignoring directory structure,
+       ignoring `_controller` and other suffixes
+    4. searching for files in the current directory or similarly named directory?
+    5. refactor api to take a map of options
 - right documentation
