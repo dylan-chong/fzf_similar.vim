@@ -1,0 +1,8 @@
+*fzf_similar_vim.txt*  Simple templates plug-in
+
+CONTENTS                                           *fzf_similar_vim-contents*
+
+See the readme for information about this plugin
+https://github.com/dylan-chong/fzf_similar.vim
+
+vim:tw=78:sw=8:ts=8:ft=help:norl:noet
