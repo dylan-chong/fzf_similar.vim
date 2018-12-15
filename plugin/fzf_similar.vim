@@ -16,7 +16,7 @@ function! fzf_similar#find_similar_files()
     " app/controllers/api/v4/foo_controller.rb with v4, v3, etc
     let simplified_directory = substitute(
           \   expand('%:h'),
-          \   '\v(app|src|spec|test|__test__|__tests__)',
+          \   '\v(app|lib|src|spec|test|__test__|__tests__)',
           \   '',
           \   'g'
           \ )
