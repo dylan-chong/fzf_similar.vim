@@ -26,7 +26,7 @@ function! fzf_similar#find_similar_files()
     " you are looking for, but that is okay because fzf does a fuzzy search
     call s:run_query(simplified_directory . '/' . base_file_name)
   else
-    call s:run_query("'" . base_file_name)
+    call s:run_query(base_file_name)
   endif
 endfunction
 
@@ -35,9 +35,9 @@ function! fzf_similar#find_similarly_named_files()
 
   let is_in_subdirectory = expand('%') =~ '/'
   if is_in_subdirectory
-    call s:run_query("'/" . base_file_name)
+    call s:run_query("/" . base_file_name)
   else
-    call s:run_query("'" . base_file_name)
+    call s:run_query( base_file_name)
   endif
 endfunction
 
@@ -51,7 +51,7 @@ endfunction
 
 function! s:run_query(query)
   let base_query = ':FZF --tiebreak=end,length'
-  let ignore_current_file_query = '!^./' . expand('%') . "$"
+  let ignore_current_file_query = '!^./' . expand('%') . '$'
 
   let command = base_query . ' -q ' . ignore_current_file_query . "\\ " . a:query
   execute command
