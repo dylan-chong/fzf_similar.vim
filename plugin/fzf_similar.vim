@@ -16,7 +16,7 @@ function! fzf_similar#find_similar_files()
     " app/controllers/api/v4/foo_controller.rb with v4, v3, etc
     let simplified_directory = substitute(
           \   expand('%:h'),
-          \   '\v(app|lib|src|spec|test|__test__|__tests__)',
+          \   '\v(app|lib|main|src|spec|test|__test__|__tests__)',
           \   '',
           \   'g'
           \ )
@@ -24,9 +24,9 @@ function! fzf_similar#find_similar_files()
     let simplified_directory = substitute(simplified_directory, '^/', '', 'g')
     " simplify_directory may not exactly match the actual directory of the file
     " you are looking for, but that is okay because fzf does a fuzzy search
-    call s:run_query(simplified_directory . '/' . base_file_name)
+    call s:run_query(simplified_directory . '/' . base_file_name, 1)
   else
-    call s:run_query(base_file_name)
+    call s:run_query(base_file_name, 1)
   endif
 endfunction
 
@@ -35,10 +35,18 @@ function! fzf_similar#find_similarly_named_files()
 
   let is_in_subdirectory = expand('%') =~ '/'
   if is_in_subdirectory
-    call s:run_query("/" . base_file_name)
+    call s:run_query("/" . base_file_name, 1)
   else
-    call s:run_query( base_file_name)
+    call s:run_query(base_file_name, 1)
   endif
+endfunction
+
+function! fzf_similar#find_files_in_the_same_directory()
+  let directory = expand('%:h')
+  let file_name = expand('%:t:r')
+  let extension = expand('%:e')
+
+  call s:run_query("/" . directory . "\\ " . file_name . "\\ " . extension, 0)
 endfunction
 
 function! s:get_base_file_name()
@@ -49,10 +57,14 @@ function! s:get_base_file_name()
   return base_file_name
 endfunction
 
-function! s:run_query(query)
+function! s:run_query(query, include_ignore_current_file_query)
   let base_query = ':FZF --tiebreak=end,length'
   let ignore_current_file_query = '!^./' . expand('%') . '$'
 
-  let command = base_query . ' -q ' . ignore_current_file_query . "\\ " . a:query
+  if a:include_ignore_current_file_query
+    let command = base_query . ' -q ' . ignore_current_file_query . "\\ " . a:query
+  else
+    let command = base_query . ' -q ' . "\\ " . a:query
+  endif
   execute command
 endfunction

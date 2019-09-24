@@ -24,6 +24,7 @@ Add this (with the mapping of your choice) to your `.vimrc`:
 ```vim
 nnoremap <silent> <Leader><C-f>1 :call fzf_similar#find_similar_files()<CR>
 nnoremap <silent> <Leader><C-f>2 :call fzf_similar#find_similarly_named_files()<CR>
+nnoremap <silent> <Leader><C-f>3 :call fzf_similar#find_files_in_the_same_directory()<CR>
 ```
 
 ## Function Documentation
@@ -49,6 +50,10 @@ plugin will suggest the file `spec/models/report.rb`, while ignoring
 Same as `find_similar_files` but ignores filtering by similarly named ancestor
 directories.
 
+### `fzf_similar#find_files_in_the_same_directory()`
+
+Finds files in the same directory as the current file.
+
 ## FAQ
 
 ### Why not use
@@ -69,5 +74,4 @@ for (most) projects out-of-the-box.
     1. refactor api to take a map of options
     1. searching of files for similar name, ie ignoring directory structure,
        ignoring `_controller` and other suffixes
-    1. searching for files in the current directory or similarly named directory?
 - right documentation
