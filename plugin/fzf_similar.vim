@@ -43,10 +43,8 @@ endfunction
 
 function! fzf_similar#find_files_in_the_same_directory()
   let directory = expand('%:h')
-  let file_name = expand('%:t:r')
-  let extension = expand('%:e')
 
-  call s:run_query("/" . directory . "\\ " . file_name . "\\ " . extension, 0)
+  call s:run_query("/" . directory, 1)
 endfunction
 
 function! s:get_base_file_name()
